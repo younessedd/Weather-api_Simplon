@@ -1,0 +1,767 @@
+/* ============================================================= */
+/* 1. تعريف المتغيرات العامة (Variables)                         */
+/* ============================================================= */
+:root {
+  --primary-color: #f1c40f;                    /* اللون الأساسي الرئيسي */
+  --primary-color-dark: #d1ac06;               /* اللون الأساسي الداكن */
+  --card-bg: rgba(255, 255, 255, 0.95);       /* خلفية البطاقات في الوضع الفاتح */
+  --card-bg-dark: rgba(25, 34, 54, 0.9);       /* خلفية البطاقات في الوضع الداكن */
+  --border-radius: 16px;                       /* نصف قطر الزوايا للعناصر */
+  --shadow-light: 0 10px 30px rgba(215, 0, 0, 0.22);  /* ظل خفيف */
+  --shadow-dark: 0 10px 30px rgba(215, 0, 0, 0.85);   /* ظل غامق */
+  --transition: 0.4s ease;                     /* سرعة وانتقال التغييرات */
+}
+
+/* ============================================================= */
+/* 2. إعدادات الواجهة العامة - الحاويات (Containers)             */
+/* ============================================================= */
+
+/* تنسيق تاريخ اليوم */
+.today-date {
+  font-size: 1rem;                             /* حجم الخط */
+  color: #555;                                /* لون الخط رمادي متوسط */
+  margin-bottom: 10px;                        /* هامش سفلي */
+  font-weight: 600;                           /* سمك الخط */
+  text-transform: capitalize;                 /* تحويل الحرف الأول لكل كلمة لحرف كبير */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* الخط المستخدم */
+}
+
+/* حاوية منطقة البحث والإعدادات */
+.search-and-settings {
+  position: fixed;                            /* تثبيت الموقع */
+  top: 110px;                                /* المسافة من الأعلى */
+  left: 50%;                                 /* التمركز أفقياً */
+  transform: translateX(-50%);                /* تعويض لتركيز العنصر */
+  padding: 20px;                             /* الحشو الداخلي */
+  max-width: 680px;                          /* أقصى عرض */
+  width: 90%;                               /* العرض النسبي */
+  margin: 0;                                /* حذف الهوامش */
+  text-align: center;                       /* محاذاة النص في المنتصف */
+  background: var(--card-bg);               /* الخلفية */
+  border-radius: var(--border-radius);      /* زوايا مستديرة */
+  box-shadow: var(--shadow-light);          /* الظل */
+  transition: var(--transition);             /* انتقال سلس */
+  display: flex;                            /* استخدام فليكس */
+  flex-wrap: wrap;                          /* التفاف العناصر */
+  gap: 18px;                               /* المسافة بين العناصر */
+  justify-content: center;                  /* محاذاة المحتوى أفقياً */
+  align-items: center;                      /* محاذاة المحتوى عمودياً */
+  z-index: 1;                              /* ترتيب التراكب */
+}
+
+/* حاوية مدخلات البحث */
+.search-container {
+  display: flex;                           /* عرض أفقي */
+  gap: 12px;                              /* المسافة بين المدخلات */
+  align-items: center;                    /* محاذاة عمودية */
+  background: #f9f9f9;                    /* خلفية فاتحة */
+  padding: 10px 14px;                     /* الحشو الداخلي */
+  border-radius: 14px;                    /* زوايا مستديرة */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* ظل خفيف */
+  flex: 1 1 300px;                       /* مرونة العرض مع الحد الأدنى */
+  max-width: 100%;                       /* عرض كامل */
+}
+
+/* مدخل النص للبحث */
+.search-container input[type="text"] {
+  flex-grow: 1;                          /* التمدد لملء المساحة */
+  padding: 10px 14px;                   /* حشو داخلي */
+  font-size: 1rem;                      /* حجم الخط */
+  border-radius: 10px;                  /* زوايا مستديرة */
+  border: 2px solid #ddd;               /* حدود رمادية فاتحة */
+  transition: all 0.3s ease;            /* انتقال سلس عند التفاعل */
+}
+
+/* حالة التركيز على مدخل النص */
+.search-container input[type="text"]:focus {
+  border-color: var(--primary-color);   /* تغيير لون الحدود */
+  box-shadow: 0 0 8px var(--primary-color); /* ظل حول النص */
+  outline: none;                        /* إزالة الخط الخارجي الافتراضي */
+}
+
+/* زر البحث */
+.search-container button {
+  background: var(--primary-color);    /* خلفية باللون الأساسي */
+  color: #fff;                         /* نص أبيض */
+  border: none;                       /* بدون حدود */
+  padding: 10px 14px;                 /* حشو داخلي */
+  border-radius: 10px;                /* زوايا مستديرة */
+  font-size: 1.1rem;                  /* حجم الخط */
+  display: flex;                      /* استخدام فليكس */
+  align-items: center;                /* محاذاة عمودية */
+  justify-content: center;            /* محاذاة أفقية */
+  transition: background 0.3s ease;  /* انتقال سلس للخلفية */
+}
+
+/* أيقونة داخل الزر */
+.search-container button i {
+  font-size: 1.1rem;                  /* حجم الخط للأيقونة */
+}
+
+/* تأثير عند تحويم الماوس فوق الزر */
+.search-container button:hover {
+  background-color: var(--primary-color-dark); /* تغير اللون عند التحويم */
+}
+
+/* أزرار اختيار وحدة القياس */
+.units {
+  display: flex;                    /* عرض أفقي */
+  gap: 10px;                       /* مسافة بين الأزرار */
+  flex-shrink: 0;                  /* عدم تصغير */
+}
+
+/* زر وحدة قياس */
+.unit-btn {
+  padding: 8px 16px;               /* حشو داخلي */
+  border: 2px solid var(--primary-color); /* حدود باللون الأساسي */
+  background-color: white;         /* خلفية بيضاء */
+  color: var(--primary-color);    /* لون النص باللون الأساسي */
+  border-radius: 10px;            /* زوايا مستديرة */
+  cursor: pointer;                /* مؤشر الفأرة */
+  font-weight: bold;              /* خط عريض */
+  transition: all 0.3s ease;      /* انتقال سلس */
+}
+
+/* حالة الزر النشط وعند التحويم */
+.unit-btn.active,
+.unit-btn:hover {
+  background-color: var(--primary-color);  /* خلفية بلون أساسي */
+  color: white;                            /* نص أبيض */
+}
+
+/* ============================================================= */
+/* 3. الهيكل الرئيسي (Main)                                       */
+/* ============================================================= */
+main {
+  height: 90%;                          /* ارتفاع نسبي */
+  width: 90%;                           /* عرض نسبي */
+  background-color: rgba(255, 255, 255, 0.92); /* خلفية شبه شفافة */
+  border-radius: 16px;                  /* زوايا مستديرة */
+  box-shadow: 0 8px 24px rgba(215, 0, 0, 0.18); /* ظل خفيف */
+  padding: 20px;                       /* حشو داخلي */
+  text-align: center;                  /* محاذاة النص للوسط */
+  transition: background-color 0.6s ease, box-shadow 0.6s ease; /* انتقالات */
+  position: relative;                 /* موقع نسبي */
+  top: 150px;                        /* إزاحة من الأعلى */
+  left: 80px;                       /* إزاحة من اليسار */
+  right: 80px;                      /* إزاحة من اليمين */
+  display: flex;                    /* استخدام فليكس */
+}
+
+/* ============================================================= */
+/* 4. قسم الطقس الحالي (Current Weather)                         */
+/* ============================================================= */
+.current-weather {
+  background: linear-gradient(145deg, #ffffff, #f2f2f2); /* تدرج لوني فاتح */
+  border-radius: var(--border-radius);        /* زوايا مستديرة */
+  padding: 20px;                             /* حشو داخلي */
+  margin: 20px;                              /* هامش خارجي */
+  box-shadow: var(--shadow-light);            /* ظل خفيف */
+  text-align: center;                        /* محاذاة للنص */
+  transition: background-color 0.5s ease, box-shadow 0.5s ease; /* انتقال سلس */
+  user-select: none;                        /* منع تحديد النص */
+  border: 1px solid #eee;                   /* إطار فاتح */
+  z-index: 0;                              /* ترتيب التراكب */
+  top: 10px;                               /* إزاحة من الأعلى */
+  left: 10px;                              /* إزاحة من اليسار */
+  width: 45%;                              /* عرض نسبي */
+  height: 90%;                             /* ارتفاع نسبي */
+}
+
+/* عنوان القسم الأول في الطقس الحالي */
+.current-weather h2:first-of-type {
+  font-size: 2.2rem;                        /* حجم الخط */
+  color: #333;                             /* لون النص */
+  margin-bottom: 16px;                     /* هامش سفلي */
+  text-transform: uppercase;                /* تحويل النص إلى أحرف كبيرة */
+  letter-spacing: 1px;                     /* تباعد الحروف */
+  font-weight: 800;                        /* سمك الخط */
+  position: relative;                      /* موقع نسبي */
+  display: inline-block;                   /* عرض داخلي */
+}
+
+/* خط تحت العنوان */
+.current-weather h2:first-of-type::after {
+  content: '';                             /* محتوى فارغ */
+  display: block;                         /* عرض كتلة */
+  margin: 6px auto 0;                     /* هامش مركزي */
+  border-radius: 2px;                     /* زوايا مستديرة */
+}
+
+/* اسم المدينة */
+#city-name {
+  font-size: 1.8rem;                      /* حجم الخط */
+  font-weight: 700;                      /* سمك الخط */
+  margin-bottom: 10px;                   /* هامش سفلي */
+  color: #444;                          /* لون نص متوسط */
+}
+
+/* الحاوية الرئيسية للطقس */
+.weather-main {
+  display: flex;                       /* عرض أفقي */
+  justify-content: center;             /* محاذاة أفقية */
+  align-items: center;                 /* محاذاة عمودية */
+  gap: 40px;                         /* مسافة بين العناصر */
+  margin: 30px;                      /* هامش خارجي */
+  flex-wrap: wrap;                   /* التفاف العناصر */
+  height: 50%;                      /* ارتفاع نسبي */
+}
+
+/* أيقونة الطقس */
+#weather-icon i {
+  font-size: 6rem;                    /* حجم كبير للأيقونة */
+  color: var(--primary-color);       /* لون أصفر */
+  filter: drop-shadow(0 0 6px var(--primary-color)); /* ظل للأيقونة */
+  transition: color 0.5s ease, filter 0.5s ease; /* انتقال سلس */
+}
+
+/* درجة الحرارة */
+.weather-temp {
+  font-size: 4rem;                  /* حجم الخط كبير */
+  font-weight: 900;                /* سمك الخط ثقيل */
+  letter-spacing: 0.05em;          /* تباعد الحروف */
+  text-shadow: 0 2px 8px rgba(215, 0, 0, 0.7); /* ظل للنص */
+  user-select: text;               /* السماح بتحديد النص */
+  color: #222;                    /* لون نص داكن */
+}
+
+/* وصف الطقس */
+#weather-description {
+  font-size: 1.2rem;                /* حجم الخط */
+  font-style: italic;               /* خط مائل */
+  color: #666;                    /* لون رمادي */
+  margin-bottom: 20px;             /* هامش سفلي */
+}
+
+/* تفاصيل الطقس */
+.weather-details {
+  display: flex;                    /* عرض أفقي */
+  justify-content: center;          /* محاذاة أفقية */
+  gap: 30px;                      /* مسافة بين التفاصيل */
+  flex-wrap: wrap;                 /* التفاف */
+  margin-top: 15px;                /* هامش علوي */
+}
+
+/* عنصر تفاصيل واحد */
+.weather-details .detail {
+  display: flex;                  /* عرض أفقي */
+  align-items: center;             /* محاذاة عمودية */
+  gap: 8px;                      /* مسافة بين الأيقونة والنص */
+  font-size: 1.05rem;             /* حجم الخط */
+  color: #444;                   /* لون نص متوسط */
+  background: #f9f9f9;           /* خلفية فاتحة */
+  padding: 10px 14px;            /* حشو داخلي */
+  border-radius: 12px;           /* زوايا مستديرة */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* ظل خفيف */
+  transition: transform 0.3s ease; /* انتقال الحركة */
+}
+
+/* تأثير التحويم على تفاصيل الطقس */
+.weather-details .detail:hover {
+  transform: translateY(-3px);    /* رفع العنصر قليلاً */
+}
+
+/* أيقونة تفاصيل الطقس */
+.weather-details .detail i {
+  font-size: 1.5rem;               /* حجم الأيقونة */
+  color: var(--primary-color-dark); /* لون أصفر غامق */
+}
+
+/* ============================================================= */
+/* 5. أوصاف إضافية ومعلومات الطقس (Details)                      */
+/* ============================================================= */
+#weather-description {
+  font-size: 1.3rem;               /* حجم الخط */
+  font-weight: 600;                /* سمك الخط */
+  font-style: italic;              /* خط مائل */
+  text-transform: capitalize;      /* الحرف الأول كبير */
+  margin-bottom: 30px;             /* هامش سفلي */
+  color: #555;                    /* لون رمادي */
+  letter-spacing: 0.05em;          /* تباعد الحروف */
+}
+
+.weather-details {
+  display: flex;                  /* عرض أفقي */
+  justify-content: center;         /* محاذاة أفقية */
+  gap: 40px;                      /* مسافة بين التفاصيل */
+  flex-wrap: wrap;                /* التفاف */
+  font-weight: 700;               /* سمك الخط */
+  font-size: 1.1rem;              /* حجم الخط */
+  user-select: none;              /* منع تحديد النص */
+}
+
+.detail {
+  display: flex;                  /* عرض أفقي */
+  align-items: center;            /* محاذاة عمودية */
+  gap: 12px;                     /* مسافة بين الأيقونة والنص */
+  color: #444;                   /* لون نص متوسط */
+  transition: color 0.4s ease;    /* انتقال سلس للون */
+}
+
+.detail i {
+  font-size: 1.8rem;              /* حجم الأيقونة */
+  color: var(--primary-color);    /* لون أصفر */
+  filter: drop-shadow(0 0 6px var(--primary-color)); /* ظل للأيقونة */
+  transition: color 0.4s ease, filter 0.4s ease; /* انتقال سلس للون والظل */
+}
+
+/* ============================================================= */
+/* 6. التوقعات الساعية (Hourly Forecast)                         */
+/* ============================================================= */
+.hourly-forecast {
+  background-color: var(--card-bg);        /* خلفية الحاوية */
+  border-radius: var(--border-radius);     /* زوايا مستديرة */
+  padding: 70px;                           /* حشو داخلي */
+  margin: 20px;                           /* هامش خارجي */
+  box-shadow: var(--shadow-light);         /* ظل خفيف */
+  transition: background-color 0.5s ease, box-shadow 0.5s ease; /* انتقال سلس */
+  user-select: none;                       /* منع تحديد النص */
+  overflow-y: auto;                       /* تمرير عمودي */
+  scrollbar-width: thin;                  /* عرض شريط التمرير */
+  scrollbar-color: var(--primary-color) transparent; /* ألوان شريط التمرير */
+  bottom: 100px;                         /* إزاحة من الأسفل */
+  left: 10px;                           /* إزاحة من اليسار */
+  width: 45%;                           /* عرض نسبي */
+  /* height: auto; */                     /* تعليق ارتفاع تلقائي */
+}
+
+/* تخصيص شريط التمرير في الويبكيت */
+.hourly-forecast::-webkit-scrollbar {
+  height: 6px;                          /* ارتفاع شريط التمرير */
+}
+
+.hourly-forecast::-webkit-scrollbar-track {
+  background: transparent;              /* خلفية المسار */
+}
+
+.hourly-forecast::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);  /* لون المقبض */
+  border-radius: 6px;                     /* زوايا مستديرة */
+}
+
+/* عنوان القسم */
+h3 {
+  margin-bottom: 20px;                    /* هامش سفلي */
+  color: var(--primary-color);            /* لون النص */
+  font-weight: 800;                       /* سمك الخط */
+  letter-spacing: 0.1em;                  /* تباعد الحروف */
+  text-transform: uppercase;              /* تحويل النص لأحرف كبيرة */
+  user-select: none;                      /* منع تحديد النص */
+}
+
+/* ============================================================= */
+/* 7. الحاوية الزمنية (Hourly Container)                         */
+/* ============================================================= */
+.hourly-container {
+  display: flex;                     /* عرض أفقي */
+  gap: 18px;                        /* مسافة بين العناصر */
+  padding-bottom: 8px;              /* حشو سفلي */
+  height: auto;                    /* ارتفاع تلقائي */
+}
+
+/* ============================================================= */
+/* 8. خريطة الطقس (Map Section)                                  */
+/* ============================================================= */
+#map-section {
+  background-color: var(--card-bg);         /* خلفية الحاوية */
+  border-radius: var(--border-radius);      /* زوايا مستديرة */
+  padding: 15px;                            /* حشو داخلي */
+  margin: 20px 0;                          /* هامش علوي وسفلي */
+  box-shadow: var(--shadow-light);          /* ظل خفيف */
+  transition: background-color 0.5s ease, box-shadow 0.5s ease; /* انتقال سلس */
+  user-select: none;                       /* منع تحديد النص */
+  width: 100%;                            /* عرض كامل */
+  height: 250px;                          /* ارتفاع ثابت */
+  position: relative;                     /* موقع نسبي */
+  left: 0;                               /* تعويض عن المحور الأفقي */
+}
+
+#map {
+  width: 100%;                          /* عرض كامل */
+  height: 100%;                         /* ارتفاع كامل */
+  border-radius: 12px;                 /* زوايا مستديرة */
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1); /* ظل داخلي */
+}
+
+.weather-map h3 {
+  margin: 25px;                         /* هامش داخلي */
+}
+
+/* ============================================================= */
+/* 9. التوقعات اليومية (Daily Forecast)                          */
+/* ============================================================= */
+.daily-forecast {
+  background-color: var(--card-bg);       /* خلفية الحاوية */
+  border-radius: var(--border-radius);    /* زوايا مستديرة */
+  padding: 3px;                          /* حشو داخلي صغير */
+  margin: 20px;                         /* هامش خارجي */
+  box-shadow: var(--shadow-light);        /* ظل خفيف */
+  transition: background-color 0.5s ease, box-shadow 0.5s ease; /* انتقال سلس */
+  user-select: none;                    /* منع تحديد النص */
+  position: relative;                   /* موقع نسبي */
+  top: 0;                             /* إزاحة صفر */
+  right: 500;                         /* إزاحة من اليمين (يبدو ناقص px) */
+  width: 45%;                        /* عرض نسبي */
+  height: 55%;                       /* ارتفاع نسبي */
+}
+
+.daily-container {
+  display: flex;                      /* عرض عمودي */
+  flex-direction: column;             /* ترتيب عمودي */
+  gap: 15px;                        /* مسافة بين العناصر */
+}
+
+.daily-item {
+  height: 135px;                   /* ارتفاع ثابت لكل عنصر */
+}
+
+/* ============================================================= */
+/* 10. عناصر التوقعات الساعية (Hourly Items)                    */
+/* ============================================================= */
+.hourly-item {
+  display: flex;                   /* عرض عمودي */
+  flex-direction: column;          /* ترتيب عمودي */
+  align-items: center;             /* محاذاة أفقية للوسط */
+  background: rgba(241, 196, 15, 0.1); /* خلفية صفراء شفافة */
+  padding: 10px 15px;              /* حشو داخلي */
+  border-radius: 12px;             /* زوايا مستديرة */
+  box-shadow: 0 2px 8px rgba(241, 196, 15, 0.3); /* ظل */
+  width: 70px;                    /* عرض ثابت */
+  font-weight: 600;               /* سمك الخط */
+  color: #333;                   /* لون النص */
+  transition: background-color 0.3s ease; /* انتقال سلس للخلفية */
+  cursor: default;               /* مؤشر الفأرة */
+}
+
+.hourly-item:hover {
+  background-color: rgba(241, 196, 15, 0.25); /* خلفية أكثر وضوحًا عند التحويم */
+}
+
+.hourly-item > div:first-child {
+  font-size: 0.9rem;            /* حجم الخط */
+  margin-bottom: 8px;           /* هامش سفلي */
+}
+
+.hourly-item i {
+  font-size: 2.5rem;            /* حجم الأيقونة */
+  color: #f1c40f;               /* لون أصفر */
+  margin-bottom: 8px;           /* هامش سفلي */
+}
+
+.hourly-item > div:last-child {
+  font-size: 1.2rem;            /* حجم الخط */
+  color: #d1ac06;               /* لون أصفر غامق */
+}
+
+/* ============================================================= */
+/* 11. الفوتر (Footer)                                           */
+/* ============================================================= */
+.simple-footer {
+  background-color: #222;           /* خلفية داكنة */
+  color: #fff;                     /* نص أبيض */
+  font-family: Arial, sans-serif;  /* الخط المستخدم */
+  font-size: 14px;                 /* حجم الخط */
+  padding: 15px 20px;              /* حشو داخلي */
+  display: flex;                  /* عرض أفقي */
+  flex-direction: column;          /* ترتيب عمودي */
+  align-items: center;             /* محاذاة أفقية للوسط */
+  justify-content: center;         /* محاذاة عمودية للوسط */
+  gap: 10px;                      /* مسافة بين العناصر */
+  margin-top: 200px;               /* هامش علوي كبير */
+  height: 100px;                  /* ارتفاع ثابت */
+  width: 100%;                   /* عرض كامل */
+}
+
+.social-icons {
+  display: flex;                  /* عرض أفقي */
+  gap: 15px;                     /* مسافة بين الأيقونات */
+}
+
+.social-icons a {
+  color: #fff;                   /* لون الأيقونة */
+  font-size: 20px;               /* حجم الخط */
+  text-decoration: none;         /* إزالة التسطير */
+  transition: color 0.3s ease;  /* انتقال سلس للون */
+}
+
+.social-icons a:hover {
+  color: #f1c40f;               /* لون أصفر عند التحويم */
+}
+
+/* ============================================================= */
+/* 12. تصميم متجاوب (Responsive Design)                         */
+/* ============================================================= */
+
+/* موبايل وتابلت (عبر نطاق 200px - 868px) */
+@media (min-width: 200px) and (max-width: 868px) {
+  main {
+    justify-content: center;        /* محاذاة المحتوى أفقياً للوسط */
+    flex-direction: column;         /* ترتيب عمودي */
+    width: 95%;                    /* عرض نسبي */
+    padding: 5px;                  /* حشو داخلي صغير */
+    /* margin-left: 20px; */         /* تم التعليق */
+    /* margin-right: 10px; */        /* تم التعليق */
+    margin-top: 20px;              /* هامش علوي */
+    right: 5px;                   /* إزاحة من اليمين */
+    left: 7px;                    /* إزاحة من اليسار */
+  }
+
+  .current-weather,
+  .hourly-forecast,
+  .daily-forecast {
+    width: 95%;                   /* عرض نسبي */
+    height: 60%;                  /* ارتفاع نسبي */
+    top: 0;                      /* إزاحة من الأعلى صفر */
+    margin-bottom: 10px;          /* هامش سفلي */
+    padding: 5px;                 /* حشو داخلي صغير */
+    margin-left: 13px;            /* هامش يسار */
+  }
+
+  .weather-main {
+    flex-direction: column;        /* ترتيب عمودي */
+    gap: 20px;                    /* مسافة بين العناصر */
+  }
+
+  .weather-temp {
+    font-size: 2.5rem;            /* حجم الخط أصغر */
+  }
+
+  #weather-icon i {
+    font-size: 4rem;              /* حجم أيقونة أصغر */
+  }
+
+  .weather-details {
+    flex-direction: column;       /* ترتيب عمودي */
+    gap: 15px;                    /* مسافة بين التفاصيل */
+  }
+
+  .hourly-container {
+    overflow-x: auto;             /* تمرير أفقي */
+    flex-wrap: nowrap;            /* منع التفاف */
+    gap: 12px;                   /* مسافة بين العناصر */
+  }
+
+  .hourly-item {
+    min-width: 70px;             /* عرض أدنى */
+  }
+
+  .daily-container {
+    flex-direction: column;      /* ترتيب عمودي */
+    gap: 10px;                   /* مسافة بين العناصر */
+  }
+
+  .daily-item {
+    height: auto;               /* ارتفاع تلقائي */
+    padding: 10px;              /* حشو داخلي */
+  }
+}
+
+/* تابلت فقط (بين 868px و 900px) */
+@media (min-width: 868px) and (max-width: 900px) {
+  main {
+    display: flex;               /* عرض أفقي */
+    flex-direction: column;      /* ترتيب عمودي */
+    max-width: 95%;             /* أقصى عرض */
+    padding: 20px;              /* حشو داخلي */
+    margin-top: 130px;          /* هامش علوي */
+    left: 2px;                 /* إزاحة من اليسار */
+    margin-left: 20px;          /* هامش يسار */
+  }
+
+  .current-weather,
+  .hourly-forecast,
+  .daily-forecast {
+    width: 98%;                /* عرض نسبي */
+    padding: 5px;             /* حشو داخلي */
+    margin-bottom: 25px;      /* هامش سفلي */
+    top: 0;                   /* إزاحة من الأعلى صفر */
+    left: 20px;               /* إزاحة من اليسار */
+    margin-right: 20px;       /* هامش يمين */
+  }
+
+  .weather-main {
+    display: flex;            /* عرض أفقي */
+    flex-direction: row;      /* ترتيب أفقي */
+    flex-wrap: wrap;          /* التفاف */
+    gap: 25px;               /* مسافة بين العناصر */
+    justify-content: space-between; /* توزيع الفراغ بين العناصر */
+  }
+
+  .weather-temp {
+    font-size: 3rem;          /* حجم الخط */
+  }
+
+  #weather-icon i {
+    font-size: 5rem;          /* حجم الأيقونة */
+  }
+
+  .weather-details {
+    display: flex;            /* عرض أفقي */
+    flex-direction: row;      /* ترتيب أفقي */
+    flex-wrap: wrap;          /* التفاف */
+    gap: 15px;               /* مسافة بين العناصر */
+    justify-content: space-around; /* توزيع الفراغ بين العناصر */
+  }
+
+  .hourly-container {
+    flex-wrap: nowrap;        /* منع التفاف */
+    overflow-x: auto;        /* تمرير أفقي */
+    gap: 15px;               /* مسافة بين العناصر */
+  }
+
+  .hourly-item {
+    min-width: 80px;         /* عرض أدنى */
+    padding: 10px;           /* حشو داخلي */
+  }
+
+  .daily-container {
+    display: grid;           /* استخدام شبكة */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* أعمدة متجاوبة */
+    gap: 15px;              /* مسافة بين العناصر */
+  }
+
+  .daily-item {
+    padding: 15px;          /* حشو داخلي */
+    text-align: center;    /* محاذاة النص للوسط */
+  }
+
+  .search-container {
+    display: flex;           /* عرض أفقي */
+    flex-direction: row;     /* ترتيب أفقي */
+    justify-content: space-between; /* توزيع الفراغ */
+    gap: 15px;              /* مسافة بين العناصر */
+  }
+
+  .search-container input[type="text"] {
+    width: 70%;             /* عرض 70% */
+    font-size: 1rem;        /* حجم الخط */
+  }
+
+  .search-container button {
+    width: 25%;             /* عرض 25% */
+    font-size: 1rem;        /* حجم الخط */
+  }
+
+  .units {
+    display: flex;          /* عرض أفقي */
+    justify-content: center; /* محاذاة وسط */
+    gap: 10px;              /* مسافة بين الأزرار */
+  }
+
+  .unit-btn {
+    padding: 8px 14px;      /* حشو داخلي */
+    font-size: 1rem;        /* حجم الخط */
+  }
+}
+
+/* ------------------------------------------------------------- */
+/* قسم الرسم البياني لدرجة الحرارة                              */
+/* ------------------------------------------------------------- */
+.temperature-chart {
+  padding: 20px 10px;                         /* حشو داخلي */
+  background-color: #f5f7fa;                  /* خلفية فاتحة */
+  border-radius: 10px;                        /* زوايا مستديرة */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);    /* ظل خفيف */
+  max-width: 650px;                           /* أقصى عرض */
+  margin: 30px auto;                         /* هامش مركزي */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* خط */
+  color: #333;                               /* لون النص */
+  text-align: center;                        /* محاذاة وسط */
+}
+
+.temperature-chart h3 {
+  margin-bottom: 15px;                       /* هامش سفلي */
+  font-weight: 700;                          /* سمك الخط */
+  font-size: 1.5rem;                         /* حجم الخط */
+  color: #444;                              /* لون نص */
+}
+
+.temperature-chart canvas {
+  width: 100% !important;                    /* عرض كامل */
+  height: 350px !important;                  /* ارتفاع ثابت */
+  border-radius: 8px;                        /* زوايا مستديرة */
+  background: #fff;                          /* خلفية بيضاء */
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.05); /* ظل داخلي */
+}
+
+/* ============================================================= */
+/* الوضع الفاتح (Light Mode) - الوضع الافتراضي                   */
+/* الوضع الفاتح (Light Mode) - الوضع الافتراضي */
+#div7 {
+  background-color: #f9f9f9;
+  color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+#div7 h3 {
+  color: #111;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#div7 canvas {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: auto;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* شاشات متوسطة (Medium Screens) من 901px إلى 1200px */
+@media (min-width: 901px) and (max-width: 1200px) {
+  #div7 {
+    max-width: 80%;  /* زيادة العرض */
+    padding: 18px;
+  }
+  
+  #div7 h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* استجابة للتابلت */
+@media (max-width: 900px) and (min-width: 600px) {
+  #div7 {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  #div7 h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* استجابة للموبايل الكبير */
+@media (max-width: 599px) and (min-width: 401px) {
+  #div7 {
+    padding: 12px;
+    max-width: 95%;
+  }
+
+  #div7 h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* استجابة للموبايل الصغير جداً (400px وأقل) */
+@media (max-width: 400px) {
+  #div7 {
+    padding: 8px 10px;
+    max-width: 98%;
+  }
+
+  #div7 h3 {
+    font-size: 1.1rem;
+  }
+
+  #div7 canvas {
+    height: 200px !important; /* ارتفاع مناسب للشاشات الصغيرة */
+  }
+}

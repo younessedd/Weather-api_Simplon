@@ -1,0 +1,110 @@
+/* Reset and root variables */
+:root {
+  --primary-color: #f1c40f; /* Couleur principale jaune */
+  --primary-color-dark: #d1ac06; /* Variante sombre de la couleur principale */
+  --card-bg: rgba(255, 255, 255, 0.95); /* Fond clair pour cartes */
+  --card-bg-dark: rgba(25, 34, 54, 0.9); /* Fond sombre pour cartes */
+  --border-radius: 16px; /* Rayon des bordures */
+  --shadow-light: 0 10px 30px rgba(215, 0, 0, 0.22); /* Ombre légère rouge */
+  --shadow-dark: 0 10px 30px rgba(215, 0, 0, 0.85); /* Ombre sombre rouge */
+  --transition: 0.4s ease; /* Durée et type de transition */
+}
+
+/* Supprime marges et paddings par défaut, applique box-sizing border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style global du body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police moderne et lisible */
+  background: linear-gradient(120deg, #87ceeb, #f0f4f8); /* Dégradé bleu ciel */
+  color: #333; /* Couleur du texte principale */
+  min-height: 100vh; /* Hauteur minimum pleine fenêtre */
+  transition: background 0.6s ease, color 0.6s ease; /* Transition douce sur couleur et fond */
+  -webkit-font-smoothing: antialiased; /* Lissage police pour Webkit */
+  -moz-osx-font-smoothing: grayscale; /* Lissage police pour Firefox */
+}
+
+/* Conteneur de la section "About" */
+.about-section {
+  max-width: 900px; /* Largeur max */
+  /* height: 70%; */ /* hauteur commentée */
+  margin: 4rem auto; /* marge verticale, centrage horizontal */
+  padding: 2.5rem; /* espacement interne */
+  background: linear-gradient(to bottom right, #ffffff, #f9f9f9); /* fond dégradé très clair */
+  border-radius: 20px; /* arrondi des coins */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07); /* ombre portée subtile */
+  text-align: center; /* texte centré */
+  position: relative; /* position relative pour pseudo-élément */
+  overflow: hidden; /* masque débordement */
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* transition douce sur déplacement et ombre */
+}
+
+/* Effet hover sur la section About */
+.about-section:hover {
+  transform: translateY(-5px); /* légère remontée */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1); /* ombre plus visible */
+}
+
+/* Pseudo-élément avant pour effet visuel */
+.about-section::before {
+  content: ''; /* nécessaire pour afficher */
+  position: absolute; /* position absolue */
+  top: -20%; /* dépasse en haut */
+  left: -20%; /* dépasse à gauche */
+  width: 140%; /* largeur étendue */
+  height: 140%; /* hauteur étendue */
+  background: radial-gradient(circle at center, rgba(215, 0, 0, 0.05), transparent 70%); /* dégradé radial rouge très léger */
+  z-index: 0; /* derrière le contenu */
+}
+
+/* Titre principal dans About */
+.about-section h1 {
+  margin-bottom: 1.5rem; /* marge dessous */
+  color: #d70000; /* rouge vif */
+  font-weight: 800; /* gras */
+  font-size: 2rem; /* taille du texte */
+  position: relative; /* position relative pour pseudo-élément */
+  z-index: 1; /* au-dessus du ::before */
+}
+
+/* Ligne décorative sous le titre */
+.about-section h1::after {
+  content: ''; /* nécessaire pour afficher */
+  display: block; /* bloc */
+  width: 60px; /* largeur de la ligne */
+  height: 4px; /* hauteur de la ligne */
+  background-color: #d70000; /* couleur rouge */
+  margin: 0.5rem auto 1rem; /* marge au dessus, centrage horizontal, marge en dessous */
+  border-radius: 2px; /* bords arrondis */
+}
+
+/* Paragraphe dans About */
+.about-section p {
+  font-size: 1.1rem; /* taille de police légèrement augmentée */
+  line-height: 1.8; /* interligne confortable */
+  margin-top: 1.2rem; /* marge au-dessus */
+  color: #555; /* couleur texte gris foncé */
+  position: relative; /* position relative */
+  z-index: 1; /* devant le ::before */
+}
+
+/* Styles adaptatifs pour écrans ≤ 768px */
+@media (max-width: 768px) {
+  .about-section {
+    margin: 2rem 1rem; /* marges réduites */
+    padding: 2rem 1.5rem; /* padding réduit */
+  }
+
+  .about-section h1 {
+    font-size: 1.6rem; /* taille titre réduite */
+  }
+
+  .about-section p {
+    font-size: 1rem; /* taille texte réduite */
+    line-height: 1.6; /* interligne réduit */
+  }
+}

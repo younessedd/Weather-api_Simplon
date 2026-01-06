@@ -1,0 +1,243 @@
+/* ============================= */
+/*        الوضع الليلي العام       */
+/* ============================= */
+body.dark {
+  background: #121212;  /* خلفية داكنة أساسية */
+  color: #ddd;          /* لون نص فاتح */
+}
+
+/* ============================= */
+/* 🔴 الوضع الليلي لصفحة "Contact" */
+/* ============================= */
+body.dark main {
+  background-color: var(--card-bg-dark); /* خلفية داكنة للعنصر الرئيسي */
+  color: #eee;                           /* لون نص فاتح */
+  box-shadow: var(--shadow-dark);       /* ظل خفيف */
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  background-color: #1e1e1e; /* خلفية حقول الإدخال داكنة */
+  color: #ddd;               /* نص فاتح داخل الحقول */
+  border-color: #444;        /* لون الحدود داكن */
+}
+
+body.dark .contact-form input:focus,
+body.dark .contact-form textarea:focus {
+  border-color: var(--primary-color-dark);  /* لون الحدود عند التركيز */
+  box-shadow: 0 0 8px var(--primary-color); /* توهج خفيف حول الحقل */
+}
+
+body.dark .contact-form button {
+  background-color: var(--primary-color-dark); /* خلفية زر داكنة */
+  color: #000;                                 /* نص أسود داخل الزر */
+}
+
+body.dark .contact-form button:hover {
+  background-color: var(--primary-color); /* خلفية الزر عند التحويم */
+  color: white;                           /* نص أبيض عند التحويم */
+}
+
+/* ============================= */
+/* 🔴 الوضع الليلي لصفحة "About Us" */
+/* ============================= */
+body.dark .about-section {
+  background: #1a1a1a;                /* خلفية داكنة للقسم */
+  color: #ccc;                       /* نص رمادي فاتح */
+  box-shadow: var(--shadow-dark);    /* ظل خفيف */
+}
+
+body.dark .about-section p {
+  color: #aaa; /* نص رمادي أفتح للفقرات */
+}
+
+/* ============================= */
+/* 🔴 الوضع الليلي لعناصر الطقس  */
+/* ============================= */
+body.dark .current-weather,
+body.dark .daily-forecast,
+body.dark .hourly-forecast {
+  background-color: var(--card-bg-dark); /* خلفية داكنة للبطاقات */
+  color: #ddd;                          /* نص فاتح */
+}
+
+/* التفاصيل الخاصة بحالة الطقس الحالية */
+body.dark .current-weather {
+  background: linear-gradient(145deg, #1e293b, #15212c); /* تدرج لوني خلفي */
+  box-shadow: var(--shadow-dark);                       /* ظل خفيف */
+  border-color: #333;                                   /* حدود داكنة */
+  color: #ccc;                                         /* نص رمادي فاتح */
+}
+
+body.dark .current-weather h2:first-of-type {
+  color: var(--primary-color);  /* لون مميز للعنوان */
+}
+
+body.dark #city-name {
+  color: #eee; /* لون اسم المدينة */
+}
+
+body.dark #weather-icon i {
+  color: var(--primary-color); /* لون أيقونة الطقس */
+  filter: drop-shadow(0 0 8px var(--primary-color)); /* توهج للأيقونة */
+}
+
+body.dark .weather-temp {
+  color: #fff; /* لون درجة الحرارة */
+  text-shadow: 0 2px 8px rgba(241, 196, 15, 0.9); /* توهج للنص */
+}
+
+body.dark #weather-description {
+  color: #aaa; /* وصف الطقس بلون رمادي فاتح */
+}
+
+body.dark .weather-details {
+  gap: 30px; /* مسافة بين تفاصيل الطقس */
+}
+
+body.dark .weather-details .detail {
+  background: #22303f;                             /* خلفية داكنة للتفاصيل */
+  color: #ddd;                                    /* نص فاتح */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);      /* ظل خفيف */
+}
+
+body.dark .weather-details .detail:hover {
+  transform: translateY(-3px); /* رفع بسيط عند التحويم */
+}
+
+body.dark .weather-details .detail i {
+  color: var(--primary-color-dark);               /* لون الأيقونات */
+  filter: drop-shadow(0 0 6px var(--primary-color)); /* توهج للأيقونات */
+}
+
+/* ============================= */
+/* 🔴 البحث والإعدادات - الوضع الليلي */
+/* ============================= */
+body.dark .search-and-settings {
+  background: var(--card-bg-dark); /* خلفية داكنة */
+  box-shadow: var(--shadow-dark); /* ظل خفيف */
+  color: #ddd;                    /* نص فاتح */
+}
+
+body.dark .search-container {
+  background: #1a2433;                         /* خلفية داكنة */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8); /* ظل أكبر */
+}
+
+body.dark .search-container input[type="text"] {
+  background: #22303f;  /* خلفية الإدخال */
+  color: #eee;          /* نص فاتح */
+  border: 2px solid #555; /* حدود داكنة */
+}
+
+body.dark .search-container input[type="text"]:focus {
+  border-color: var(--primary-color);       /* لون الحدود عند التركيز */
+  box-shadow: 0 0 8px var(--primary-color); /* توهج */
+  outline: none;                            /* إزالة الخط الخارجي الافتراضي */
+}
+
+body.dark .search-container button {
+  background: var(--primary-color-dark); /* خلفية زر */
+  color: #222;                           /* نص داكن */
+}
+
+body.dark .search-container button:hover {
+  background-color: var(--primary-color); /* خلفية زر عند التحويم */
+  color: white;                          /* نص أبيض */
+}
+
+/* ============================= */
+/*   أزرار اختيار الوحدات (مثل مئوية، فهرنهايت) */
+/* ============================= */
+body.dark .units {
+  gap: 10px; /* مسافة بين الأزرار */
+}
+
+body.dark .unit-btn {
+  background-color: #22303f;              /* خلفية داكنة */
+  border-color: var(--primary-color-dark); /* إطار داكن */
+  color: var(--primary-color);            /* لون نص مميز */
+}
+
+body.dark .unit-btn.active,
+body.dark .unit-btn:hover {
+  background-color: var(--primary-color); /* خلفية مميزة */
+  color: white;                           /* نص أبيض */
+}
+
+/* ============================= */
+/* زر تبديل الوضع الليلي */
+/* ============================= */
+body.dark #theme-toggle {
+  background: var(--primary-color-dark);  /* خلفية داكنة */
+  color: #222;                           /* نص داكن */
+  border-color: var(--primary-color-dark); /* حدود */
+}
+
+body.dark #theme-toggle:hover {
+  background-color: var(--primary-color); /* خلفية عند التحويم */
+  color: white;                           /* نص أبيض */
+}
+
+/* ============================= */
+/*  تكرار لتعزيز الخلفية والظل والنص */
+/* ============================= */
+body.dark main {
+  background-color: var(--card-bg-dark); /* خلفية داكنة */
+  box-shadow: var(--shadow-dark);       /* ظل */
+  color: #ddd;                          /* نص فاتح */
+}
+
+/* ============================= */
+/* ✅ الوضع الليلي (Dark Mode) - تكرار نهائي */
+/* ============================= */
+body.dark {
+  background: #121212; /* خلفية داكنة */
+  color: #eee;         /* نص فاتح */
+}
+
+/* خلفية النموذج */
+body.dark main {
+  background: var(--card-bg-dark);
+  color: #eee;
+  box-shadow: var(--shadow-dark);
+  border: 1px solid #333; /* إطار خفيف */
+}
+
+/* عنوان الصفحة */
+body.dark main h1 {
+  color: var(--primary-color); /* لون العنوان */
+}
+
+/* عناصر النموذج */
+body.dark .contact-form label {
+  color: #ccc; /* لون تسميات الحقول */
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  background-color: #1e1e1e;
+  color: #ddd;
+  border-color: #444;
+}
+
+body.dark .contact-form input:focus,
+body.dark .contact-form textarea:focus {
+  border-color: var(--primary-color-dark);
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+/* الزر */
+body.dark .contact-form button {
+  background-color: var(--primary-color-dark);
+  color: #000;
+}
+
+body.dark .contact-form button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+
+
+

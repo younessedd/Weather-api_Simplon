@@ -1,0 +1,147 @@
+<!DOCTYPE html> <!-- تعريف نوع الوثيقة HTML5 -->
+<html lang="fr"> <!-- تحديد لغة الصفحة الفرنسية -->
+<head>
+  <meta charset="UTF-8" /> <!-- ترميز الصفحة UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- ضبط العرض للاستجابة -->
+  <title>HitRadio - Météo</title> <!-- عنوان الصفحة -->
+
+  <!-- روابط الخطوط والأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css" /> <!-- Weather Icons نسخة 2.0.10 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css" /> <!-- Weather Icons نسخة 2.0.9 (مكررة) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> <!-- CSS مكتبة Leaflet للخرائط -->
+
+  <!-- ملفات CSS الخاصة بالموقع -->
+  <link rel="stylesheet" href="../dark.css" /> <!-- نمط الوضع الداكن -->
+  <link rel="stylesheet" href="style-header.css" /> <!-- تنسيق الهيدر -->
+  <link rel="stylesheet" href="light-weather.css" /> <!-- تنسيق الطقس الوضع الفاتح -->
+  <link rel="stylesheet" href="hourly-item.css" /> <!-- تنسيق عناصر التوقعات الساعية -->
+  <link rel="stylesheet" href="daily-item.css" /> <!-- تنسيق عناصر التوقعات اليومية -->
+</head>
+
+<body>
+
+  <!-- NAVBAR: شريط التنقل الرئيسي -->
+  <header>
+    <div class="logo">🎵 HitRadio</div> <!-- شعار الموقع -->
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button> <!-- زر لفتح القائمة في الهواتف -->
+    <nav>
+      <ul>
+        <button id="theme-toggle" class="theme-btn">🌙</button> <!-- زر تبديل الوضع الداكن والفاتح -->
+        <li><a href="../about/about.html">About-Us</a></li> <!-- رابط صفحة من نحن -->
+        <li><a href="../Contact/Contact.html">Contact</a></li> <!-- رابط صفحة الاتصال -->
+      </ul>
+    </nav>
+  </header>
+
+  <!--==================== بداية قسم الطقس =========================================-->
+  <div class="container">
+
+    <!-- قسم البحث والإعدادات -->
+    <section class="search-and-settings">
+      <div class="search-container">
+        <input type="text" id="city-input" placeholder="Rechercher une ville..." /> <!-- حقل البحث عن مدينة -->
+        <button id="search-btn" aria-label="Chercher"><i class="fa-solid fa-magnifying-glass"></i></button> <!-- زر البحث -->
+      </div>
+      <div id="today-date" class="today-date"></div> <!-- عرض التاريخ الحالي -->
+      <div class="units">
+        <button class="unit-btn active" data-unit="metric">°C</button> <!-- زر وحدة درجة مئوية مفعل -->
+        <button class="unit-btn" data-unit="imperial">°F</button> <!-- زر وحدة فهرنهايت -->
+      </div>
+    </section>
+    <!-- نهاية قسم البحث والإعدادات -->
+
+    <!-- بداية المحتوى الرئيسي -->
+    <main>
+
+      <!-- قسم الطقس الحالي -->
+      <section class="current-weather">
+        <h2>WEATHER</h2> <!-- عنوان القسم -->
+
+        <div class="weather-info">
+          <h2 id="city-name">Chargement...</h2> <!-- اسم المدينة أو تحميل -->
+          <div class="weather-main">
+            <div id="weather-icon">
+              <i class="wi wi-day-sunny"></i> <!-- أيقونة الطقس الافتراضية -->
+            </div>
+            <div class="weather-temp">
+              <span id="temperature">--</span> <!-- درجة الحرارة -->
+              <span id="unit">°C</span> <!-- وحدة القياس -->
+            </div>
+          </div>
+          <div id="weather-description">--</div> <!-- وصف حالة الطقس -->
+          <div class="weather-details">
+            <div class="detail">
+              <i class="wi wi-humidity"></i> <!-- أيقونة الرطوبة -->
+              <span id="humidity">--%</span> <!-- نسبة الرطوبة -->
+            </div>
+            <div class="detail">
+              <i class="wi wi-strong-wind"></i> <!-- أيقونة الرياح -->
+              <span id="wind">-- km/h</span> <!-- سرعة الرياح -->
+            </div>
+            <div class="detail">
+              <i class="wi wi-barometer"></i> <!-- أيقونة الضغط الجوي -->
+              <span id="pressure">-- hPa</span> <!-- الضغط الجوي -->
+            </div>
+          </div>
+        </div>
+
+        <!-- قسم الخريطة -->
+        <section class="weather-map">
+          <h3>Map</h3> <!-- عنوان الخريطة -->
+          <div id="map" style="height: 300px; width: 100%; border-radius: 10px; margin-top: 10px;"></div> <!-- الحاوية التي تعرض الخريطة -->
+        </section>
+      </section>
+      <!-- نهاية قسم الطقس الحالي -->
+
+      <!-- قسم التوقعات الساعية -->
+      <section class="hourly-forecast">
+        <h3 class="hour">Prévisions horaires</h3> <!-- عنوان التوقعات الساعية -->
+        <div id="hourly-forecast" class="hidden">
+          <!-- سيتم إدراج عناصر التوقعات الساعية هنا ديناميكياً -->
+        </div>
+
+        <!-- قسم الرسم البياني لدرجة الحرارة الساعية -->
+        <section id="div7" class="temperature-chart">
+          <h3>Température horaire</h3> <!-- عنوان الرسم البياني -->
+          <div style="width: 100%; max-width: 600px; margin: auto;">
+            <canvas id="hourlyTempChart"></canvas> <!-- عنصر الرسم البياني -->
+          </div>
+        </section>
+
+      </section>
+
+      <!-- قسم التوقعات اليومية -->
+      <section class="daily-forecast">
+        <h3>Prévisions sur 5 jours</h3> <!-- عنوان التوقعات اليومية -->
+        <div class="daily-container" id="daily-forecast">
+          <!-- سيتم إضافة التوقعات اليومية هنا بواسطة JavaScript -->
+        </div>
+      </section>
+
+    </main>
+    <!-- نهاية المحتوى الرئيسي -->
+
+  </div>
+
+  <!-- الفوتر (تذييل الصفحة) -->
+  <footer class="simple-footer">
+    <p>© 2025 جميع الحقوق محفوظة</p> <!-- حقوق النشر -->
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> <!-- فيسبوك -->
+      <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <!-- تويتر -->
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> <!-- إنستغرام -->
+    </div>
+  </footer>
+
+  <!--==================== نهاية قسم الطقس =========================================-->
+
+  <!-- ملفات جافاسكريبت -->
+  <script src="main.js"></script> <!-- كود الجافاسكريبت الأساسي -->
+  <script src="../darknew.js" defer></script> <!-- كود تبديل الثيم مع تأخير التحميل -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> <!-- مكتبة Leaflet للخرائط -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&language=en"></script> <!-- خرائط جوجل API -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- مكتبة Chart.js للرسم البياني -->
+
+</body>
+</html>

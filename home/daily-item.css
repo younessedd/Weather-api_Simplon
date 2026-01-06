@@ -1,0 +1,157 @@
+/* ========================================================= */
+/*          CSS خاص بعناصر توقعات الطقس اليومية Daily        */
+/* ========================================================= */
+
+
+/* [المرتبة 1] حاوية كل يوم (البلوك الرئيسي الذي يحتوي معلومات يوم الطقس) */
+.daily-item {
+  background-color: #ffffffdd; /* خلفية بيضاء مع شفافية */
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(215, 0, 0, 0.15);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  cursor: default;
+  user-select: none;
+}
+
+/* [المرتبة 2] تأثير عند مرور الماوس على حاوية كل يوم */
+.daily-item:hover {
+  box-shadow: 0 8px 24px rgba(215, 0, 0, 0.35);
+  transform: translateY(-6px);
+  background-color: #fff1f1;
+}
+
+/* [المرتبة 3] الصف العلوي داخل كل يوم: يحتوي على اسم اليوم وأيقونة الطقس */
+.day-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* [المرتبة 4.1] اسم اليوم */
+.day {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #d70000; /* لون أحمر مميز */
+  text-transform: capitalize;
+}
+
+/* [المرتبة 4.2] أيقونة الطقس */
+.weather-icon {
+  font-size: 3rem;
+  color: #f1c40f; /* أصفر ذهبي */
+  filter: drop-shadow(0 0 8px #f1c40f);
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+/* [المرتبة 5.1] تأثير توهج متحرك لأيقونة الشمس */
+.wi-day-sunny {
+  color: #f9d71c;
+  filter: drop-shadow(0 0 12px #f9d71c);
+  animation: glow-sun 3s ease-in-out infinite;
+}
+
+/* [المرتبة 5.2] تأثير توهج متحرك لأيقونة الثلج */
+.wi-snow {
+  color: #00cfff;
+  filter: drop-shadow(0 0 12px #00cfff);
+  animation: glow-cold 3s ease-in-out infinite;
+}
+
+/* [المرتبة 6.1] تعريف حركة توهج الشمس */
+@keyframes glow-sun {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px #f9d71c);
+    color: #f9d71c;
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #fffa72);
+    color: #fffa72;
+  }
+}
+
+/* [المرتبة 6.2] تعريف حركة توهج الثلج */
+@keyframes glow-cold {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px #00cfff);
+    color: #00cfff;
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #a0eaff);
+    color: #a0eaff;
+  }
+}
+
+/* [المرتبة 7] حاوية نطاق درجات الحرارة (العظمى والصغرى) */
+.temps-range {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+/* [المرتبة 8.1] درجة الحرارة العظمى (القصوى) */
+.temp-max {
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: #d70000; /* أحمر للنقاط القصوى */
+}
+
+/* [المرتبة 8.2] درجة الحرارة الدنيا */
+.temp-min {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #555; /* لون رمادي للنقاط الدنيا */
+}
+
+/* [المرتبة 9] وصف حالة الطقس */
+.description {
+  font-style: italic;
+  font-size: 1rem;
+  text-align: center;
+  color: #444;
+  text-transform: capitalize;
+  user-select: text;
+}
+
+/* ===================== الوضع الداكن Dark Mode ===================== */
+
+/* [المرتبة 10.1] تعديل حاوية كل يوم في الوضع الداكن */
+body.dark .daily-item {
+  background-color: #1a1a1add; /* خلفية داكنة مع شفافية */
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.25);
+}
+
+/* [المرتبة 10.2] تأثير عند مرور الماوس في الوضع الداكن */
+body.dark .daily-item:hover {
+  box-shadow: 0 8px 24px rgba(255, 140, 0, 0.6);
+  background-color: #2b2b2b;
+}
+
+/* [المرتبة 10.3] لون اسم اليوم في الوضع الداكن */
+body.dark .day {
+  color: #ff8c00; /* برتقالي داكن */
+}
+
+/* [المرتبة 10.4] أيقونة الطقس في الوضع الداكن */
+body.dark .weather-icon {
+  color: #ffd633;
+  filter: drop-shadow(0 0 8px #ffd633);
+}
+
+/* [المرتبة 10.5] درجة الحرارة القصوى في الوضع الداكن */
+body.dark .temp-max {
+  color: #ff8c00;
+}
+
+/* [المرتبة 10.6] درجة الحرارة الدنيا في الوضع الداكن */
+body.dark .temp-min {
+  color: #bbb;
+}
+
+/* [المرتبة 10.7] وصف الطقس في الوضع الداكن */
+body.dark .description {
+  color: #ccc;
+}

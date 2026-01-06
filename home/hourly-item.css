@@ -1,0 +1,59 @@
+/* عنصر الساعة - يستخدم داخل كل عنصر من التوقعات */
+.hour {
+  font-size: 1rem;           /* حجم الخط */
+  font-weight: 600;          /* وزن الخط متوسط غامق */
+  color: #c21616;            /* لون النص أحمر غامق */
+  margin-bottom: 12px;       /* مسافة أسفل العنصر */
+}
+
+/* الحاوية العامة للتوقعات الساعية - مرتبة أولًا في HTML */
+#hourly-forecast {
+  /* display: grid;  */    
+  display: grid;                        /* عرض العناصر باستخدام Grid */
+  grid-template-columns: repeat(2, 1fr);     /* 3 أعمدة متساوية العرض */
+  gap: 15px;                                 /* مسافة بين العناصر */
+  padding-bottom: 10px;                      /* مسافة من الأسفل */
+ height: auto;                         /* ارتفاع بنسبة 50% من العنصر الأب */
+}
+
+/* كل عنصر داخل التوقعات الساعية */
+.hourly-item {
+  display: flex;                             /* تخطيط مرن */
+  flex-direction: column;                   /* الترتيب عمودي للعناصر */
+  align-items: center;                      /* توسيط أفقي للعناصر */
+  justify-content: center;                  /* توسيط عمودي للعناصر */
+  padding: 10px;                             /* مساحة داخلية */
+  border-radius: 12px;                       /* حواف دائرية ناعمة */
+  background: rgba(255, 255, 255, 0.1);      /* خلفية شفافة قليلاً */
+  backdrop-filter: blur(4px);               /* تأثير ضبابي للخلفية */
+  color: #fff;                               /* لون النص أبيض */
+  width: 100%;                               /* عرض العنصر كامل داخل العمود */
+  height: auto;                             /* ارتفاع ثابت */
+  cursor: default;                           /* لا يتغير المؤشر عند التمرير */
+  transition: transform 0.3s, background-color 0.3s; /* تأثير التحول واللون عند التحويم */
+}
+
+/* تأثير التحويم (hover) على كل عنصر */
+.hourly-item:hover {
+  transform: scale(1.05);                    /* تكبير بسيط عند المرور */
+  background: rgba(197, 36, 36, 0.2);        /* خلفية أغمق عند التحويم */
+}
+
+/* عنصر الساعة داخل كل عنصر */
+.hourly-item .hour {
+  font-size: 14px;         /* حجم الخط أصغر */
+  margin-bottom: 5px;      /* مسافة أسفل بسيطة */
+  font-weight: 600;        /* الوزن متوسط غامق */
+}
+
+/* أيقونة الطقس داخل كل عنصر */
+.hourly-item .icon {
+  font-size: 28px;         /* حجم الأيقونة */
+  margin: 5px 0;           /* مسافة علوية وسفلية بسيطة */
+}
+
+/* درجة الحرارة داخل كل عنصر */
+.hourly-item .temp {
+  font-size: 16px;         /* حجم الخط للحرارة */
+  font-weight: bold;       /* خط غامق */
+}

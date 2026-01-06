@@ -1,0 +1,227 @@
+/* ============================== */
+/* 🌟 المستوى 0: المتغيرات العامة */
+/* ============================== */
+:root {
+  --primary-color: #f1c40f;               /* اللون الرئيسي */
+  --primary-color-dark: #d1ac06;          /* اللون الرئيسي الداكن */
+  --card-bg: rgba(255, 255, 255, 0.95);   /* خلفية البطاقات */
+  --card-bg-dark: rgba(25, 34, 54, 0.9);  /* خلفية البطاقات في الوضع الداكن */
+  --border-radius: 16px;                  /* نصف قطر الحواف للعناصر */
+  --shadow-light: 0 10px 30px rgba(215, 0, 0, 0.22); /* ظل خفيف */
+  --shadow-dark: 0 10px 30px rgba(215, 0, 0, 0.85);  /* ظل في الوضع الداكن */
+  --transition: 0.4s ease;                /* انتقال عام */
+}
+
+/* ✅ Reset أساسي */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================= */
+/* 🌐 المستوى 1: الجسم الكامل Body */
+/* ============================= */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #87ceeb, #f0f4f8);  /* خلفية متدرجة */
+  color: #333;
+  min-height: 100vh;
+  transition: background 0.6s ease, color 0.6s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================= */
+/* 📌 المستوى 2: رأس الصفحة Header */
+/* ================================= */
+header {
+  background: rgba(255, 255, 255, 0.95);  /* شفافية خفيفة */
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 110;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  backdrop-filter: saturate(180%) blur(15px);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  width: 100%;
+  height: 100px;
+}
+
+/* 🔘 المستوى 3: الشعار Logo */
+.logo {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d70000;
+  letter-spacing: 1.5px;
+  text-shadow: 0 1px 4px rgba(215, 0, 0, 0.6);
+}
+
+/* 🔘 المستوى 3: زر القائمة في الهاتف */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 2.2rem;
+  color: #d70000;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.menu-toggle:hover {
+  color: #a50000;
+}
+
+/* 🔘 المستوى 3: قائمة التنقل */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* 🔘 المستوى 4: روابط داخل القائمة */
+nav a {
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #d70000;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
+/* 🔘 زر تبديل الثيم */
+#theme-toggle {
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 8px 14px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#theme-toggle:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* 📱 المستوى 5: تجاوب على الأجهزة المتوسطة */
+@media (max-width: 1024px) {
+  nav ul {
+    gap: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* 📱 المستوى 5: تجاوب الهاتف المحمول */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  nav a {
+    font-size: 1.2rem;
+  }
+
+  header {
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  #theme-toggle {
+    font-size: 1.4rem;
+  }
+}
+
+/* ============================= */
+/* 🌑 المستوى 6: الوضع الداكن Dark Mode */
+/* ============================= */
+body.dark {
+  background: linear-gradient(120deg, #1e293b, #0f172a);
+  color: #eee;
+}
+
+body.dark header {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: saturate(150%) blur(15px);
+}
+
+body.dark .logo {
+  color: #ffa3a3;
+  text-shadow: 0 1px 4px rgba(255, 160, 160, 0.8);
+}
+
+body.dark .menu-toggle {
+  color: #ffa3a3;
+}
+body.dark .menu-toggle:hover {
+  color: #ff7f7f;
+}
+
+body.dark nav {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+body.dark nav a {
+  color: #ccc;
+}
+body.dark nav a::after {
+  background-color: #ffa3a3;
+}
+body.dark nav a:hover::after,
+body.dark nav a.active::after {
+  width: 100%;
+}
+
+/* 💡 تأكيد مظهر القائمة على الجوال في الوضع الداكن */
+@media (max-width: 768px) {
+  body.dark nav {
+    background: rgba(30, 41, 59, 0.95);
+  }
+}

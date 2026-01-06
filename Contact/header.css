@@ -1,0 +1,254 @@
+/* === تعريف المتغيرات العامة (CSS Variables) للاستخدام في كامل الكود === */
+:root {
+  --primary-color: #f1c40f;            /* اللون الأساسي الأصفر */
+  --primary-color-dark: #d1ac06;       /* لون أصفر داكن للنغمات الثانوية */
+  --card-bg: rgba(255, 255, 255, 0.95);/* خلفية بيضاء شبه شفافة */
+  --card-bg-dark: rgba(25, 34, 54, 0.9);/* خلفية داكنة شبه شفافة للوضع الليلي */
+  --border-radius: 16px;                /* نصف قطر زوايا لعناصر التقريب */
+  --shadow-light: 0 10px 30px rgba(215, 0, 0, 0.22); /* ظل خفيف بأحمر */
+  --shadow-dark: 0 10px 30px rgba(215, 0, 0, 0.85);  /* ظل داكن بالأحمر */
+  --transition: 0.4s ease;              /* مدة وسرعة الانتقال العامة */
+}
+
+/* === إعادة تعيين القيم الأساسية لجميع العناصر لتوحيد التباعد === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;               /* حساب الحجوم بشكل شامل */
+}
+
+/* === تنسيق جسم الصفحة === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* خطوط نظامية واضحة */
+  background: linear-gradient(120deg, #87ceeb, #f0f4f8);         /* خلفية متدرجة من أزرق سماوي إلى رمادي فاتح */
+  color: #333;                                                  /* لون النص الأساسي */
+  min-height: 100vh;                                           /* طول الصفحة كامل شاشة العرض */
+  transition: background 0.6s ease, color 0.6s ease;            /* انتقال ناعم للخلفية والنص */
+  -webkit-font-smoothing: antialiased;                         /* تحسين وضوح الخطوط على الويبكيت */
+  -moz-osx-font-smoothing: grayscale;                           /* تحسين وضوح الخطوط على فايرفوكس */
+}
+
+/* === تنسيق رأس الصفحة (Header) === */
+header {
+  background: rgba(255, 255, 255, 0.95);                       /* خلفية بيضاء شفافة قليلاً */
+  padding: 1.2rem 2.5rem;                                      /* حشوة داخلية رأسية وأفقية */
+  display: flex;                                               /* استخدام flex لتوزيع المحتوى */
+  justify-content: space-between;                              /* تباعد متساوي بين العناصر */
+  align-items: center;                                         /* محاذاة رأسية للعناصر */
+  position: sticky;                                            /* يبقى مثبت عند التمرير */
+  top: 0;                                                     /* ثبات في أعلى الصفحة */
+  z-index: 110;                                               /* فوق باقي العناصر */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);                    /* ظل ناعم أسفل الهيدر */
+  backdrop-filter: saturate(180%) blur(15px);                  /* تأثير طمس وخلفية مشبعة */
+  transition: background 0.4s ease, box-shadow 0.4s ease;      /* انتقال ناعم */
+  width: 100%;                                                /* ملء عرض الصفحة بالكامل */
+  height: 100px;                                              /* ارتفاع ثابت */
+}
+
+/* === شعار الموقع داخل الهيدر === */
+.logo {
+  font-size: 2rem;                                             /* حجم خط كبير */
+  font-weight: 900;                                            /* وزن الخط ثقيل */
+  color: #d70000;                                              /* لون أحمر قوي */
+  letter-spacing: 1.5px;                                       /* تباعد بين الحروف */
+  text-shadow: 0 1px 4px rgba(215, 0, 0, 0.6);                 /* ظل للنص يعطي تأثير عمق */
+}
+
+/* === زر القائمة الجانبية (Toggle Menu) - مخفي على الشاشات الكبيرة === */
+.menu-toggle {
+  display: none;                                               /* مخفي بشكل افتراضي */
+  background: transparent;                                     /* خلفية شفافة */
+  border: none;                                                /* بدون إطار */
+  font-size: 2.2rem;                                           /* حجم الخط كبير */
+  color: #d70000;                                              /* نفس لون الشعار */
+  cursor: pointer;                                             /* مؤشر الفأرة على شكل يد */
+  transition: color 0.3s ease;                                 /* انتقال ناعم للون */
+}
+
+/* تأثير عند المرور على زر القائمة الجانبية */
+.menu-toggle:hover {
+  color: #a50000;                                              /* احمرار أغمق عند المرور */
+}
+
+/* إضافة تأثير تركيز لأفضل وصولية */
+.menu-toggle:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* === قائمة التنقل الرئيسية (Nav list) === */
+nav ul {
+  list-style: none;                                            /* إزالة النقط أو الأرقام */
+  display: flex;                                               /* عرض العناصر بشكل صف */
+  gap: 2.5rem;                                                /* تباعد بين الروابط */
+  font-weight: 600;                                            /* وزن الخط متوسط */
+  font-size: 1.1rem;                                           /* حجم الخط */
+}
+
+/* روابط التنقل */
+nav a {
+  color: #333;                                                /* لون النص */
+  text-decoration: none;                                      /* إزالة التسطير */
+  position: relative;                                         /* لجعل ::after بالنسبة لها */
+  padding-bottom: 4px;                                        /* مسافة من الأسفل */
+  transition: color 0.3s ease;                               /* انتقال ناعم للون */
+}
+
+/* خط تحت الرابط يظهر عند المرور أو التفعيل */
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #d70000;                                  /* نفس لون الشعار */
+  transition: width 0.3s ease;                               /* حركة ناعمة للعرض */
+  border-radius: 2px;
+}
+
+/* توسعة الخط السفلي عند التمرير أو رابط نشط */
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
+/* إضافة تأثير تركيز لروابط التنقل */
+nav a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* === استعلامات الوسائط (Responsive Media Queries) للشاشات المتوسطة والصغيرة === */
+
+/* للشاشات أقل من 1024 بكسل (التابلت) */
+@media (max-width: 1024px) {
+  nav ul {
+    gap: 1.5rem;    /* تقليل التباعد */
+    font-size: 1rem; /* تصغير حجم الخط قليلاً */
+  }
+}
+
+/* للشاشات أقل من 768 بكسل (الموبايل) */
+@media (max-width: 768px) {
+  /* عرض زر القائمة الجانبية */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* تنسيق القائمة لتكون عمودية ومختفية افتراضياً */
+  nav {
+    position: absolute;
+    top: 100%;               /* تظهر أسفل الهيدر */
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    flex-direction: column;
+    align-items: center;
+    display: none;           /* مخفية بشكل افتراضي */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* عندما تكون مفتوحة (مع كلاس show) تصبح ظاهرة */
+  nav.show {
+    display: flex;
+  }
+
+  /* قائمة عمودية مع تباعد أقل */
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  /* تكبير حجم الخط للروابط */
+  nav a {
+    font-size: 1.2rem;
+  }
+
+  /* تكييف الهيدر لتغليف المحتوى */
+  header {
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+  }
+
+  /* تصغير الشعار */
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+
+/* === تعريفات الوضع الداكن (Dark Mode) === */
+body.dark {
+  background: linear-gradient(120deg, #1e293b, #0f172a);  /* خلفية داكنة متدرجة */
+  color: #eee;                                           /* نص فاتح */
+}
+
+body.dark header {
+  background: rgba(30, 41, 59, 0.95);                   /* خلفية هيدر داكنة شفافة */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);            /* ظل داكن أكثر */
+  backdrop-filter: saturate(150%) blur(15px);           /* تأثير طمس */
+}
+
+body.dark .logo {
+  color: #ffa3a3;                                        /* لون شعار وردي فاتح */
+  text-shadow: 0 1px 4px rgba(255, 160, 160, 0.8);      /* ظل نص وردي */
+}
+
+body.dark .menu-toggle {
+  color: #ffa3a3;                                        /* لون زر القائمة */
+}
+
+body.dark .menu-toggle:hover {
+  color: #ff7f7f;                                        /* لون أحمر وردي عند المرور */
+}
+
+/* قائمة التنقل في الوضع الداكن */
+body.dark nav {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+body.dark nav a {
+  color: #ccc;                                          /* لون الروابط فاتح */
+}
+
+body.dark nav a::after {
+  background-color: #ffa3a3;                           /* خط التحميل وردي */
+}
+
+body.dark nav a:hover::after,
+body.dark nav a.active::after {
+  width: 100%;
+}
+
+/* تأكيد أن القائمة المنسدلة في الموبايل بنفس النمط الداكن */
+@media (max-width: 768px) {
+  body.dark nav {
+    background: rgba(30, 41, 59, 0.95);
+  }
+}
+
+/* === زر تبديل الوضع (Theme Toggle) === */
+#theme-toggle {
+  background: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 8px 14px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* تأثير تمرير على زر التبديل */
+#theme-toggle:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* تأثير تركيز لزر تبديل الوضع */
+#theme-toggle:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
