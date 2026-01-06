@@ -12,7 +12,6 @@
 
   /////////EMAILJS//////////////
 
-<<<<<<< HEAD
 // Check if EmailJS is loaded
 function checkEmailJS() {
   if (typeof emailjs === 'undefined') {
@@ -98,13 +97,22 @@ document.addEventListener('DOMContentLoaded', function() {
       const currentTime = new Date().toLocaleString();
       
       // إنشاء بيانات النموذج مع الوقت
-      const formData = new FormData(this);
+      const formData = new FormData(contactForm);
       formData.append('time', currentTime);
       
-      // تحويل FormData إلى كائن عادي
-      const templateParams = {};
+      // تحويل FormData إلى كائن عادي مع حقول EmailJS الصحيحة
+      const templateParams = {
+        user_name: formData.get('name') || '',
+        user_email: formData.get('email') || '',
+        user_phone: formData.get('phone') || '',
+        message: formData.get('message') || '',
+        time: currentTime
+      };
+      
+      console.log('Form data collected:', templateParams);
+      console.log('Raw FormData entries:');
       for (let [key, value] of formData.entries()) {
-        templateParams[key] = value;
+        console.log(`${key}: ${value}`);
       }
       
       // Add WETHER MESSAGE title to the message content
@@ -161,31 +169,18 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
 
-      this.reset();
+      contactForm.reset();
     });
   } else {
     console.error('Contact form not found!');
   }
-=======
+})();
+
 // تهيئة EmailJS
 (function() {
   emailjs.init("IbbG69TuO-Uyx_4I8"); // استبدل بمفتاحك العام من EmailJS
 })();
 
-// إرسال النموذج عبر EmailJS
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  emailjs.sendForm("service_9a47m0s", "template_vlo4ub3", this) // عدل حسب الخدمة والقالب الخاصين بك
-    .then(function(response) {
-      document.getElementById("status-message").textContent = "✅ Message sent successfully!";
-    }, function(error) {
-      document.getElementById("status-message").textContent = "❌ Failed to send message.";
-    });
-
-  this.reset();
->>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
-});
 
 // تعريف المتغيرات لعناصر المودال والزر
 const contactBtn = document.getElementById('contactBtn');
