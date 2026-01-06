@@ -100,6 +100,7 @@ main h1 {
   transform: scale(1.02);
 }
 
+<<<<<<< HEAD
 /* تنسيق رسالة الحالة */
 .status-message {
   margin-top: 1rem;
@@ -207,6 +208,8 @@ main h1 {
   }
 }
 
+=======
+>>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
 /* استجابة الشاشة */
 @media (max-width: 768px) {
   main {
@@ -217,6 +220,7 @@ main h1 {
   main h1 {
     font-size: 2rem;
   }
+<<<<<<< HEAD
 
   .toast-container {
     top: 10px;
@@ -228,4 +232,6 @@ main h1 {
     min-width: auto;
     max-width: none;
   }
+=======
+>>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
 }

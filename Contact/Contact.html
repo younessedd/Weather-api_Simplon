@@ -42,6 +42,7 @@
       <!-- Formulaire de contact commence ici -->
       <main id="contact-main" class="dark">
         <h1>Contactez-nous</h1> <!-- Titre principal de la section contact -->
+<<<<<<< HEAD
         <form id="contactForm" class="contact-form">
           <label for="name">Nom complet</label> <!-- Label pour le champ nom -->
           <input type="text" id="name" name="user_name" placeholder="Votre nom" required /> <!-- Champ texte pour le nom, requis -->
@@ -51,19 +52,34 @@
 
           <label for="phone">Téléphone</label> <!-- Label pour le champ téléphone -->
           <input type="tel" id="phone" name="user_phone" placeholder="Votre numéro de téléphone" /> <!-- Champ téléphone, optionnel -->
+=======
+        <form id="contactForm" class="contact-form" action="#" method="post">
+          <label for="name">Nom complet</label> <!-- Label pour le champ nom -->
+          <input type="text" id="name" name="name" placeholder="Votre nom" required /> <!-- Champ texte pour le nom, requis -->
+          
+          <label for="email">Email</label> <!-- Label pour le champ email -->
+          <input type="email" id="email" name="email" placeholder="votre.email@example.com" required /> <!-- Champ email, requis -->
+
+          <label for="phone">Téléphone</label> <!-- Label pour le champ téléphone -->
+          <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone" /> <!-- Champ téléphone, optionnel -->
+>>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
           
           <label for="message">Message</label> <!-- Label pour la zone de texte message -->
           <textarea id="message" name="message" rows="6" placeholder="Votre message ici..." required></textarea> <!-- Zone texte message, requis -->
           
           <button type="submit">Envoyer</button> <!-- Bouton de soumission du formulaire -->
         </form>
+<<<<<<< HEAD
         <div id="status-message" class="status-message"></div> <!-- Status message container -->
+=======
+>>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
       </main>
       
     </div>
   </div>
 </section>
 
+<<<<<<< HEAD
 <!-- Toast Container -->
 <div id="toast-container" class="toast-container"></div>
 
@@ -71,6 +87,12 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="Contact.js"></script>  <!-- JS spécifique à la page Contact (ex : validation formulaire) -->
   <script src="../darknew.js" defer></script> <!-- JS pour la gestion du mode sombre -->
+=======
+  <!-- Fichiers JavaScript -->
+  <script src="Contact.js"></script>  <!-- JS spécifique à la page Contact (ex : validation formulaire) -->
+  <script src="../darknew.js" defer></script> <!-- JS pour la gestion du mode sombre -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script> <!-- Librairie EmailJS -->
+>>>>>>> 4ce23d7965eca79bf38fc6dd316b3b82c89ea462
 
 </body>
 </html>
