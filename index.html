@@ -1,23 +1,407 @@
-<!DOCTYPE html> <!-- ✅ [1] إعلان نوع مستند HTML5، ضروري لتحديد طريقة تفسير المتصفح للصفحة -->
-<html lang="fr"> <!-- ✅ [2] بداية مستند HTML، مع تحديد لغة الصفحة وهي الفرنسية -->
-<head> <!-- ✅ [3] بداية قسم الرأس (meta, title, CSS links, etc.) -->
-  <meta charset="UTF-8" /> <!-- ✅ [4] تعيين الترميز إلى UTF-8 لدعم الأحرف الخاصة مثل الفرنسية والعربية -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- ✅ [5] إعدادات العرض لتكون متجاوبة مع الهواتف والأجهزة اللوحية -->
-  <title>Splash - HitRadio</title> <!-- ✅ [6] عنوان الصفحة الذي يظهر في تبويب المتصفح -->
-  <link rel="stylesheet" href="splash.css" /> <!-- ✅ [7] ربط ملف CSS الخاص بتصميم هذه الصفحة -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroWeather - Weather & Astronomy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤</text></svg>">
 </head>
-<body> <!-- ✅ [8] بداية محتوى الصفحة -->
-
-  <div class="splash-container"> <!-- ✅ [9] حاوية رئيسية لمحتوى شاشة البداية -->
-    <div class="logo-circle"> <!-- ✅ [10] دائرة تحتوي على أيقونة 🎧 لتمثيل شعار الراديو -->
-      <span>🎧</span> <!-- ✅ [11] الأيقونة نفسها (رمز سماعة الرأس) -->
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="celestial-animation" id="splash-celestial">
+            <div class="celestial-body" id="splash-body">
+                <svg viewBox="0 0 64 64" id="splash-icon"></svg>
+            </div>
+        </div>
+        <div class="splash-clouds">
+            <div class="splash-cloud splash-cloud-1">
+                <svg viewBox="0 0 200 60" fill="none">
+                    <path d="M30 45c-10-6-15-18-10-28 5-10 17-12 25-9 4-7 11-11 20-10 11 1 19 11 14 18-1 10-9 17-19 18-2 0-4 1-6 1-8 1-14 7-17 14v3h30z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="splash-cloud splash-cloud-2">
+                <svg viewBox="0 0 200 60" fill="none">
+                    <path d="M25 40c-8-5-12-14-8-22 4-8 13-10 20-7 3-6 9-9 16-8 9 1 15 9 14 18-1 10-9 17-19 18-2 0-4 1-6 1-8 1-14 7-17 14v3h25z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="splash-cloud splash-cloud-3">
+                <svg viewBox="0 0 200 60" fill="none">
+                    <path d="M35 42c-9-5-14-16-9-25 4-9 15-11 22-8 4-6 10-9 18-8 10 1 17 10 16 20-1 11-10 19-22 20-2 0-5 1-7 1-9 1-15 8-18 15v3h28z" fill="currentColor"/>
+                </svg>
+            </div>
+        </div>
+        <div class="splash-content">
+            <h1 class="splash-title">AstroWeather</h1>
+            <p class="splash-subtitle">Weather & Astronomy</p>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+            <p class="splash-loading-text">Loading sky data...</p>
+        </div>
     </div>
-    
-    <h1>Bienvenue sur <span class="highlight">HitRadio</span></h1> <!-- ✅ [12] عنوان ترحيبي، وكلمة HitRadio داخل span لتطبيق نمط خاص -->
-    
-    <p>Chargement en cours...</p> <!-- ✅ [13] فقرة نصية تظهر حالة "جاري التحميل" -->
-  </div>
 
-  <script src="splash.js"></script> <!-- ✅ [14] ربط ملف JavaScript لإضافة وظائف مثل الإنتقال التلقائي بعد فترة -->
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">🌤</span>
+                <span class="logo-text">AstroWeather</span>
+            </a>
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" id="city-search" placeholder="Search: Paris, New York, Tokyo..." autocomplete="off">
+                    <div class="search-results" id="search-results"></div>
+                </div>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#forecast" class="nav-link">Forecast</a></li>
+                <li><a href="#astronomy" class="nav-link">Astronomy</a></li>
+                <li><a href="#map" class="nav-link">Map</a></li>
+                <li class="nav-search-item">
+                    <div class="nav-search-container">
+                        <svg class="nav-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        <input type="text" id="nav-city-search" placeholder="Search city..." autocomplete="off">
+                        <div class="nav-search-results" id="nav-search-results"></div>
+                    </div>
+                </li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-bg" id="hero-bg"></div>
+            <div class="hero-celestial" id="hero-celestial">
+                <div class="celestial-body" id="celestial-body">
+                    <svg id="celestial-icon" viewBox="0 0 64 64"></svg>
+                </div>
+            </div>
+            <div class="hero-clouds" id="hero-clouds">
+                <div class="cloud cloud-1">
+                    <svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cloudGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.5"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M30 60c-10-6-15-18-10-28 5-10 17-12 25-9 4-7 11-11 20-10 11 1 19 11 18 22-1 12-11 21-24 22-3 0-5 1-8 2-10 1-17 9-21 17v3h30z" fill="url(#cloudGrad1)"/>
+                    </svg>
+                </div>
+                <div class="cloud cloud-2">
+                    <svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cloudGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.4"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M25 55c-8-5-12-14-8-22 4-8 13-10 20-7 3-6 9-9 16-8 9 1 15 9 14 18-1 10-9 17-19 18-2 0-4 1-6 1-8 1-14 7-17 14v3h25z" fill="url(#cloudGrad2)"/>
+                    </svg>
+                </div>
+                <div class="cloud cloud-3">
+                    <svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cloudGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+                                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.3"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M35 58c-9-5-14-16-9-25 4-9 15-11 22-8 4-6 10-9 18-8 10 1 17 10 16 20-1 11-10 19-22 20-2 0-5 1-7 1-9 1-15 8-18 15v3h28z" fill="url(#cloudGrad3)"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="hero-stars" id="hero-stars"></div>
+            <div class="hero-content">
+                <div class="location-info">
+                    <span class="location-icon">📍</span>
+                    <span class="location-name" id="location-name">Loading...</span>
+                </div>
+                <div class="time-display">
+                    <span class="date-value" id="date-value">Loading...</span>
+                    <span class="time-value" id="time-value">--:--</span>
+                </div>
+                <div class="weather-main">
+                    <div class="weather-icon" id="weather-icon"></div>
+                    <div class="temp-display">
+                        <span class="temp-value" id="temp-value">--</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-desc" id="weather-desc">Loading...</div>
+                </div>
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v6l3 3M12 22v-6l-3-3M2 12h6l3-3M22 12h-6l-3 3"/>
+                        </svg>
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value" id="humidity-value">--%</span>
+                    </div>
+                    <div class="detail-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2"/>
+                        </svg>
+                        <span class="detail-label">Wind</span>
+                        <span class="detail-value" id="wind-value">-- m/s</span>
+                    </div>
+                    <div class="detail-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <span class="detail-label">UV Index</span>
+                        <span class="detail-value" id="uv-value">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3v1M12 20v1M3 12h1M20 12h1M5.6 5.6l.7.7M17.7 17.7l.7.7M5.6 18.4l.7-.7M17.7 6.3l.7-.7"/>
+                        </svg>
+                        <span class="detail-label">Pressure</span>
+                        <span class="detail-value" id="pressure-value">-- hPa</span>
+                    </div>
+                </div>
+                <div class="sun-times">
+                    <div class="sun-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                            <circle cx="12" cy="12" r="5"/>
+                        </svg>
+                        <span>Sunrise</span>
+                        <span id="sunrise-value">--:--</span>
+                    </div>
+                    <div class="sun-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 18a5 5 0 0 0-10 0"/>
+                            <line x1="12" y1="9" x2="12" y2="2"/>
+                            <line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/>
+                            <line x1="1" y1="18" x2="3" y2="18"/>
+                            <line x1="21" y1="18" x2="23" y2="18"/>
+                            <line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/>
+                            <line x1="23" y1="22" x2="1" y2="22"/>
+                            <polyline points="8 6 12 2 16 6"/>
+                        </svg>
+                        <span>Sunset</span>
+                        <span id="sunset-value">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hourly Forecast Section -->
+        <section class="forecast-section" id="forecast">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Hourly Forecast
+                    </h2>
+                    <p class="section-subtitle">Next 24 hours</p>
+                </div>
+                <div class="hourly-container" id="hourly-container"></div>
+            </div>
+        </section>
+
+        <!-- Daily Forecast Section -->
+        <section class="daily-section" id="daily">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        7-Day Forecast
+                    </h2>
+                    <p class="section-subtitle">Extended outlook</p>
+                </div>
+                <div class="daily-forecast" id="daily-forecast"></div>
+            </div>
+        </section>
+
+        <!-- Astronomy Section -->
+        <section class="astro-section" id="astronomy">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/>
+                            <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/>
+                            <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/>
+                            <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/>
+                        </svg>
+                        Astronomy
+                    </h2>
+                    <p class="section-subtitle">Cosmic observations</p>
+                </div>
+                <div class="astro-grid">
+                    <div class="astro-card sun-card">
+                        <div class="astro-card-header">
+                            <div class="astro-icon sun-icon">☀️</div>
+                            <h3>Sun</h3>
+                        </div>
+                        <div class="astro-times">
+                            <div class="astro-time-item">
+                                <div class="time-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                    </svg>
+                                </div>
+                                <div class="time-info">
+                                    <span class="time-label">Sunrise</span>
+                                    <span class="time-value" id="astro-sunrise">--:--</span>
+                                </div>
+                            </div>
+                            <div class="astro-time-item">
+                                <div class="time-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 18a5 5 0 0 0-10 0"/>
+                                        <line x1="12" y1="9" x2="12" y2="2"/>
+                                        <line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/>
+                                        <line x1="1" y1="18" x2="3" y2="18"/>
+                                        <line x1="21" y1="18" x2="23" y2="18"/>
+                                        <line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/>
+                                        <line x1="23" y1="22" x2="1" y2="22"/>
+                                        <polyline points="8 6 12 2 16 6"/>
+                                    </svg>
+                                </div>
+                                <div class="time-info">
+                                    <span class="time-label">Sunset</span>
+                                    <span class="time-value" id="astro-sunset">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="day-length">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Day Length: </span>
+                            <span id="day-length">--:--</span>
+                        </div>
+                    </div>
+
+                    <div class="astro-card moon-card">
+                        <div class="astro-card-header">
+                            <div class="astro-icon moon-icon">🌙</div>
+                            <h3>Moon</h3>
+                        </div>
+                        <div class="moon-phase-display">
+                            <div class="moon-visual" id="moon-visual">
+                                <div class="moon-body"></div>
+                                <div class="moon-shadow"></div>
+                            </div>
+                            <div class="moon-phase-name" id="moon-phase">--</div>
+                        </div>
+                        <div class="moon-details">
+                            <div class="moon-detail">
+                                <span class="detail-label">Illumination</span>
+                                <span class="detail-value" id="moon-illumination">--%</span>
+                            </div>
+                            <div class="moon-detail">
+                                <span class="detail-label">Age</span>
+                                <span class="detail-value" id="moon-age">-- days</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="astro-card planets-card">
+                        <div class="astro-card-header">
+                            <div class="astro-icon planet-icon">🪐</div>
+                            <h3>Planets</h3>
+                        </div>
+                        <div class="planets-list" id="planets-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section" id="map">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                            <line x1="8" y1="2" x2="8" y2="18"/>
+                            <line x1="16" y1="6" x2="16" y2="22"/>
+                        </svg>
+                        Interactive Map
+                    </h2>
+                    <p class="section-subtitle">Explore weather worldwide</p>
+                </div>
+                <div class="map-container">
+                    <div id="weather-map"></div>
+                    <div class="map-controls">
+                        <button class="map-control-btn" id="locate-btn" title="My Location">
+                            <span>📍</span>
+                        </button>
+                        <button class="map-control-btn" id="zoom-in-btn" title="Zoom In">+</button>
+                        <button class="map-control-btn" id="zoom-out-btn" title="Zoom Out">-</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">🌤</span>
+                    <span class="footer-name">AstroWeather</span>
+                </div>
+                <p class="footer-text">Weather & Astronomy Data</p>
+                <div class="footer-apis">
+                    <span>Powered by Open-Meteo API</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="assets/js/weather.js"></script>
+    <script src="assets/js/hero.js"></script>
+    <script src="assets/js/forecast.js"></script>
+    <script src="assets/js/astro.js"></script>
+    <script src="assets/js/map.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
-</html> <!-- ✅ [15] نهاية صفحة HTML -->
+</html>
